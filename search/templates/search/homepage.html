@@ -1,0 +1,116 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+<!--    primer table-->
+<!--      font-family-->
+<!--    'Titillium Web', sans-serif-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
+<!--    'Josefin Sans', sans-serif;-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+<!--    Noto Sans TC for Chinese-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+<!--    Chango for post title-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Chango&family=Josefin+Sans:wght@700&family=Noto+Sans+TC:wght@700&display=swap" rel="stylesheet">
+
+<!--    'PT Mono', monospace for post title and content-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Chango&family=Josefin+Sans:wght@700&family=Noto+Sans+TC:wght@700&family=PT+Mono&display=swap" rel="stylesheet">
+
+<!--    'Nanum Gothic Coding', monospace; for content-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=PT+Mono&display=swap" rel="stylesheet">
+
+    <script>
+
+    </script>
+
+
+    <style>
+    table,
+    td {
+        border: 1px solid #333;
+    }
+
+    thead,
+    tfoot {
+        background-color: #333;
+        color: #fff;
+    }
+
+    </style>
+</head>
+
+
+
+<div class="content-section">
+      {% if user.is_authenticated %}
+      <dl class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <dd><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></dd>
+      </dl>
+      {% else %}
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+      </ul>
+      {% endif %}
+</div>
+
+
+<div style="margin:30px 0px 100px 0px;" class="content-section">
+
+    <form method='POST'>
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-5" style="margin: 30px 0px 20px 0px">
+                Source IP：{{ LogFilter.form.sourceip }}
+            </div>
+
+            <div class="col-5" style="margin: 30px 0px 20px 0px">
+                Time：{{ LogFilter.form.time }}
+            </div>
+
+            <div class="col-6" style="margin: 30px 0px 20px 0px">
+                DNS A record query (FQDN) : {{ LogFilter.form.dns_a_record_query }}
+            </div>
+
+            <div class="col-2">
+                <input style="margin: 30px 0px 20px 0px" type="submit" class="btn btn-primary" value="Search" />
+            </div>
+        </div>
+    </form>
+</div>
+
+
+ <h1>Log Search</h1>
+        <table class="table table-light table-hover">
+            <tr>
+                <th>Source IP</th>
+                <th>Time</th>
+                <th>DNS A record query (FQDN)</th>
+            </tr>
+
+            {% for log in LogFilter.qs %}
+            <tr>
+                <td style="text-align: center;">{{log.sourceip}}</td>
+                <td style="text-align: center;">{{log.time}}</td>
+                <td style="text-align: center;">{{log.dns_a_record_query}}</td>
+            </tr>
+            {% endfor %}
+        </table>

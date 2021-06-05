@@ -11,7 +11,7 @@ from django.db import models
 class Log(models.Model):
     id = models.IntegerField(primary_key=True)
     date = models.CharField(db_column='Date', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    time = models.CharField(db_column='Time', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    time = models.TimeField()
     usec = models.CharField(max_length=255, blank=True, null=True)
     sourceip = models.CharField(db_column='SourceIP', max_length=255, blank=True, null=True)  # Field name made lowercase.
     sourceport = models.CharField(db_column='SourcePort', max_length=255, blank=True, null=True)  # Field name made lowercase.
@@ -21,4 +21,4 @@ class Log(models.Model):
 
     class Meta:
         managed = True
-        db_table = 'log'
+        db_table = 'log_ori'

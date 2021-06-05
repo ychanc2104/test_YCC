@@ -1,6 +1,18 @@
 
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="content-section">
+      {% if user.is_authenticated %}
+      <dl class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <dd><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></dd>
+      </dl>
+      {% else %}
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      </ul>
+      {% endif %}
+</div>
+
+
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}

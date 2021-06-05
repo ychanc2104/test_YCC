@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'search.apps.SearchConfig',
+    'crispy_forms',
+    'django_filters',
 
 ]
 
@@ -84,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
 	'NAME': 'test_YCC',
 	'USER': 'root',
-	'PASSWORD': 'pwd',
+	'PASSWORD': 'chang951',
 	'HOST': '127.0.0.1',
 	'PORT': 3306,
         #'OPTIONS': {

@@ -7,12 +7,12 @@ db_settings = {
     "host": "127.0.0.1",
     "port": 3306,
     "user": "root",
-    "password": "",
+    "password": "chang951",
     "db": "test_YCC",
     "charset": "utf8"
 }
 
-path = r'/root/dns_sample.csv'
+path = r'dns_sample.csv'
 df = pd.read_csv(path, error_bad_lines=False)
 n = df.shape[0]
 timestamp = np.array(df['frame.time_epoch'])
@@ -37,13 +37,13 @@ for i in range(n):
     DestinationIP = DesIP[i]
     DestinationPort = str(DesPort[i])
     FQDN = DNS[i]
-    sql = "INSERT INTO log (Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, DNS_A_record_query) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO log_ori (Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, DNS_A_record_query) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     
     cursor.execute(sql, (Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, FQDN))
     #cursor.execute('SELECT LAST_INSERT_ID() AS "log_id"')    
     # 提交修改
     db.commit()
-    print('success')
+    print(f'success {i}')
     
         # 發生錯誤時停止執行SQL
     #db.rollback()
