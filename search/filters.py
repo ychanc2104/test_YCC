@@ -9,10 +9,16 @@ class LogFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
+
+    date = django_filters.DateRangeFilter(
+        widget=RangeWidget(attrs={'type': 'date'})
+    )
     time = django_filters.TimeRangeFilter(
         widget=RangeWidget(attrs={'type': 'time'})
     )
-
+    usec = django_filters.RangeFilter(
+        widget=RangeWidget()
+    )
     dns_a_record_query = django_filters.CharFilter(
         lookup_expr='icontains',
         widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -20,4 +26,4 @@ class LogFilter(django_filters.FilterSet):
 
     class Meta:
         model = Log
-        fields = ['sourceip', 'time', 'dns_a_record_query']
+        fields = ['sourceip', 'dns_a_record_query','datetime', 'date', 'time', 'usec']

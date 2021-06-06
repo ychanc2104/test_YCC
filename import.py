@@ -26,25 +26,25 @@ db = pymysql.connect(**db_settings)
 
 cursor = db.cursor()
 
-for i in range(n):
+for i in range(100):
     
     date_full = datetime.datetime.fromtimestamp(timestamp[i])
     Date = date_full.strftime('%Y-%m-%d')
-    Time = date_full.strftime('%H:%M')
-    usec = date_full.strftime('%S')
+    Time = date_full.strftime('%H:%M:%S')
+    usec = date_full.microsecond
     SourceIP = IP[i]
     SourcePort = str(Port[i])
     DestinationIP = DesIP[i]
     DestinationPort = str(DesPort[i])
     FQDN = DNS[i]
-    sql = "INSERT INTO log_ori (Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, DNS_A_record_query) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO log_ori (Datetime, Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, DNS_A_record_query) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     
-    cursor.execute(sql, (Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, FQDN))
-    #cursor.execute('SELECT LAST_INSERT_ID() AS "log_id"')    
+    cursor.execute(sql, (date_full, Date, Time, usec, SourceIP, SourcePort, DestinationIP, DestinationPort, FQDN))
+    # cursor.execute('SELECT LAST_INSERT_ID() AS "id"')
     # 提交修改
     db.commit()
     print(f'success {i}')
-    
+
         # 發生錯誤時停止執行SQL
     #db.rollback()
     #    print(SourceIP)

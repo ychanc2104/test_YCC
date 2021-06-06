@@ -9,10 +9,12 @@ from django.db import models
 
 
 class Log(models.Model):
-    id = models.IntegerField(primary_key=True)
-    date = models.CharField(db_column='Date', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    # id = models.IntegerField(primary_key=True)
+    # date = models.CharField(db_column='Date', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    datetime = models.DateTimeField()
+    date = models.DateField()
     time = models.TimeField()
-    usec = models.CharField(max_length=255, blank=True, null=True)
+    usec = models.IntegerField()
     sourceip = models.CharField(db_column='SourceIP', max_length=255, blank=True, null=True)  # Field name made lowercase.
     sourceport = models.CharField(db_column='SourcePort', max_length=255, blank=True, null=True)  # Field name made lowercase.
     destinationip = models.CharField(db_column='DestinationIP', max_length=255, blank=True, null=True)  # Field name made lowercase.
