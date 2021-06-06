@@ -9,7 +9,7 @@ from .models import Log
 def index(request):
     Logs = Log.objects.all().order_by('datetime')
     logFilter = LogFilter(
-                      request.POST,
+                      request.GET,
                       queryset=Logs
                   )
     paginator = Paginator(logFilter.qs, 50)

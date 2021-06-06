@@ -26,7 +26,7 @@ db = pymysql.connect(**db_settings)
 
 cursor = db.cursor()
 
-for i in range(100):
+for i in range(n):
     
     date_full = datetime.datetime.fromtimestamp(timestamp[i])
     Date = date_full.strftime('%Y-%m-%d')
